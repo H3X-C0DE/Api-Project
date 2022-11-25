@@ -20,12 +20,15 @@ h1 {
 .pokemon {
   background-color: #eee;
   border-radius: 20px;
-  box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   margin: 10px;
   padding: 20px;
   text-align: center;
 }
-
+.pokemon:active {
+  top: 2px;
+}
 .pokemon .img-container {
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 50%;
@@ -53,4 +56,81 @@ h1 {
 .pokemon .name {
   margin: 15px 0 7px;
   letter-spacing: 1px;
+}
+
+.pokemon-details {
+  background-color: #eee;
+  border: 1px solid #000;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+  display: flex;
+  width: 80%;
+  max-width: min(600px, 80%);
+}
+.card-stats {
+  display: flex;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+}
+.card-stats {
+  display: flex;
+  width: 100%;
+  margin: 1em;
+}
+
+.card-name {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.card-name .number {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  font-size: 0.8em;
+  padding: 5px 10px;
+}
+.img-cont {
+  width: 100%;
+}
+
+.type h3 {
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: red;
+  padding-block: 0.25rem;
+  padding-inline: 1.625rem;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+nav button {
+  border: none;
+  background: none;
+  font-weight: bold;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+#button-home {
+  color: #fff;
+}
+nav input[type="text"] {
+  color: #fff;
+  width: 20%;
+  padding: 0.25rem;
+  background-color: #710000;
+  border: 1px solid #500000;
+  border-radius: 3px;
 }
