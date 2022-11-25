@@ -1,11 +1,14 @@
+// TODO: Add Search
+// TODO: reduce api load by making a local Storage var
+
 const appElement = document.getElementById("app");
 appElement.innerHTML = `
 	<nav>
-		<button id="button-prev">⬅️</button>
+		<button id="button-prev"><i class="fas fa-arrow-left"></i></button>
 		<button id="button-home">POKE DEX</button>
-		<button id="button-next">➡️</button>
+		<button id="button-next"><i class="fas fa-arrow-right"></i></button>
 		<input type="text" name="" id="search-text" placeholder="search">
-		<button id="search-button">🔍</button>
+		<button id="search-button"><i class="fas fa-search"></i></button>
 	</nav>`;
 
 // Navbar buttons:
@@ -37,7 +40,6 @@ function navNextPage() {
   displayAllPokemons(apiUrls.next || apiUrls.main);
 }
 
-// TODO: page number calculation may be off, look into it.
 // API urls:
 const apiUrls = {
   count: 0,
@@ -60,14 +62,14 @@ async function getApi(url) {
 
 		results: [array.....]
 	*/
-
   return fetchData;
 }
-console.log("");
 const mainContent = document.createElement("div");
 mainContent.className = "pokemon-container";
 mainContent.style = "margin-top: 5rem;";
+// representing elemental color
 const colors = {
+  normal: "#F5F5F5",
   fire: "#FDDFDF",
   grass: "#DEFDE0",
   electric: "#FCF7DE",
@@ -78,10 +80,11 @@ const colors = {
   poison: "#98d7a5",
   bug: "#f8d5a3",
   dragon: "#97b3e6",
-  psychic: "#eaeda1",
+  psychic: "#c4aaf3",
   flying: "#F5F5F5",
   fighting: "#E6E0D4",
-  normal: "#F5F5F5",
+  ghost: "#ddcbff",
+  dark: "#585892",
 };
 const mainTypes = Object.keys(colors);
 
@@ -104,6 +107,11 @@ async function pokemonCardElement(pokemon) {
   pokemonImage.className = "img-container";
   pokemonImage.src =
     pokemonDetails.sprites.other["official-artwork"].front_default;
+  if (
+    pokemonDetails.sprites.other["official-artwork"].front_default
+      ? null
+      : "/src/img/Pokeball.png"
+  );
 
   const pokemonTitle = document.createElement("h2");
   pokemonTitle.textContent = `${
@@ -115,8 +123,9 @@ async function pokemonCardElement(pokemon) {
   //set the first letter in the name be a capital
   pokemonId.textContent = `#${pokemonDetails.id.toString().padStart(4, "0")}`;
 
-  const type = types.map((type) => type.type.name).join("");
+  const type = types.map((type) => type.type.name).join(", ");
   const pokemonTypes = document.createElement("span");
+  pokemonTypes.textContent = `${type}`;
   pokemonTypes.className = "type";
 
   const colorType = mainTypes.find((types) => type.indexOf(types) > -1);
@@ -142,8 +151,9 @@ function pokemonCardDetails(pokemon) {
   /* console.log(
 		stats.map(stat => "<h3>" + stat.stat.name + "</h3><h3>" + stat.base_stat + "</h3><hr>").join("")
 	) */
+
   mainContent.innerHTML = `
-		<div class="pokemonCard pokemon-details">
+		<div class="pokemonCard pokemon-details ">
 			
       <div class="img-cont">
       <img src="${
@@ -194,7 +204,6 @@ async function displayAllPokemons(url) {
   let pokemonElements = pokemonData.results.map((pokemon) =>
     pokemonCardElement(pokemon)
   );
-  // clear the mainContent div
 
   // pokemonElements contains an array of promises, because we run an additional api request in the pokemonCardElement function.
   // So we need to resolve each promise in the array, to do so we use the Promise.all method
